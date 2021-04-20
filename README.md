@@ -52,7 +52,7 @@ Via terminal, navegue até a pasta criada, onde foi depositado o clone do projet
 
 Ainda no terminal, execute o comando `docker-compose up -d` para instanciar o banco de dados. Se esta for a primeira vez que esteja criando um container com a imagem `postgres` este procedimento poderá levar alguns minutos.
 
-Uma vez que o banco de dados esteja em execução, executen o comando `yarn typeorm migration:run`. Este comando fará com que todos os objetos de banco de dados sejam criados.
+Uma vez que o banco de dados esteja em execução, execute o comando `yarn typeorm migration:run`. Este comando fará com que todos os objetos de banco de dados sejam criados.
 
 Você poderá comprovar a criação desses objetos acessando o banco de dados, utilizando o [Beekeeper Studio](https://www.beekeeperstudio.io/).
 
