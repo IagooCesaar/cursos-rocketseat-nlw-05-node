@@ -70,4 +70,10 @@ Para executar os testes será necessário primeiramente seguir os passos anterio
 
 O próximo passo será criar um banco de  dados exclusivo para testes. Para isto, iremos utilizar a instância de Postgres existente que subimos com o Docker.
 
-Com o Beekeeper, conecte-se ao banco de dados
+Com o Beekeeper, conecte-se ao banco de dados. Acesse o menu `File > New Tab`. Escreva a instrução `create database nlw05_test` e clique no botão **Run**. A mensagem  _Query Executed Successfully. No Results_ deverá ser apresentada.
+
+Com nosso banco de dados criado, de volta ao terminal, execute o comando `yarn test`. Serão executados os **testes unitários** e os **testes de integração**.
+
+# Diagrama das entidadas do banco de dados
+
+![Diagrama](https://github.com/IagooCesaar/cursos-rocketseat-nlw-05-node/blob/main/diagrama.png?raw=true)
