@@ -7,10 +7,14 @@ import express, { Request, Response } from "express";
 import { AppError } from "@shared/errors/AppError";
 import createConnection from "@shared/infra/typeorm";
 
+import { router } from "./routes";
+
 createConnection();
 
 const app = express();
 app.use(express.json());
+
+app.use(router);
 
 app.get("/", (request: Request, response: Response) => {
   return response.status(200).json({ message: "Hello NLW#05 🚀" });
