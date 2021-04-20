@@ -1,0 +1,18 @@
+{
+  "type": "sqlite",
+  "database":"./database/nlw.sqlite",
+
+  "entities": [
+    "./src/modules/**/entities/*.ts"
+  ],
+
+  "migrations": [
+    "./src/shared/infra/typeorm/migrations/*.ts"
+  ],
+  "migrationsTableName": "_migrations",
+  "cli": {
+    "migrationsDir": "./src/shared/infra/typeorm/migrations"
+  },
+  
+  "logging": false
+}
