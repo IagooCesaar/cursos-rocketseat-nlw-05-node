@@ -1,6 +1,12 @@
 {
-  "type": "sqlite",
-  "database":"./database/nlw.sqlite",
+  "name":"default",
+  "type": "postgres",
+
+  "username":"postgres",
+  "password":"docker",
+  "host":"localhost",
+  "port": 5433,
+  "database":"nlw05",
 
   "entities": [
     "./src/modules/**/entities/*.ts"

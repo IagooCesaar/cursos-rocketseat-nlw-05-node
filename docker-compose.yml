@@ -1,0 +1,25 @@
+version: "3.7"
+
+services:
+  nlw05-api:
+    image: postgres
+    container_name: nlw05-api
+    restart: always
+    ports:
+      - 5433:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=nlw05
+    volumes:
+      - pgdata:/data/postgres
+    networks:
+      - backend
+
+volumes:
+  pgdata:
+    driver: local
+
+networks:
+  backend:
+    driver: "bridge"
