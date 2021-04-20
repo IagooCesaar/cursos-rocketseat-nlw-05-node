@@ -1,0 +1,8 @@
+{
+  "name": "nlw05-node",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:IagooCesaar/cursos-rocketseat-nlw-05-node.git",
+  "author": "Iago César F. Nogueira <iagocesar.sgs@gmail.com>",
+  "license": "MIT"
+}
