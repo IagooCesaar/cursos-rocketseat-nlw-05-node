@@ -11,6 +11,11 @@ class MessagesRepository implements IMessageRepository {
     this.repository = getRepository(Message);
   }
 
+  async findByUserId(user_id: string): Promise<Message[]> {
+    const messages = await this.repository.find({ user_id });
+    return messages;
+  }
+
   async createMessage({
     user_id,
     text,

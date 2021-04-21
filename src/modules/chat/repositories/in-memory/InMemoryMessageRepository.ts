@@ -6,6 +6,10 @@ import { IMessageRepository } from "../IMessagesRepository";
 class InMemoryMessageRepository implements IMessageRepository {
   private messages: Message[] = [];
 
+  async findByUserId(user_id: string): Promise<Message[]> {
+    return this.messages.filter((message) => message.user_id === user_id);
+  }
+
   async createMessage({
     user_id,
     text,

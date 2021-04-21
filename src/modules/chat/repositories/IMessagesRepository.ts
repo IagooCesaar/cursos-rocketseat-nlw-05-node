@@ -7,6 +7,7 @@ interface IMessageRepository {
     text,
     admin_id,
   }: ICreateMessageDTO): Promise<Message>;
+  findByUserId(user_id: string): Promise<Message[]>;
 }
 
 export { IMessageRepository };
