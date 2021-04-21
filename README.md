@@ -23,6 +23,7 @@ Além da organização do projetos, utilizando os princípios do SOLID, e també
 
 - Banco de dados: ao invés de SQLite, utilizarei o Postgres
 - Infraestutura: utilizarei contêiners Docker para instanciar o banco de dados
+- mais validações de integridade
 
 # Como executar o projeto
 
