@@ -12,7 +12,12 @@ class MessagesRepository implements IMessageRepository {
   }
 
   async findByUserId(user_id: string): Promise<Message[]> {
-    const messages = await this.repository.find({ user_id });
+    const messages = await this.repository.find({
+      where: { user_id },
+      order: {
+        created_at: "DESC",
+      },
+    });
     return messages;
   }
 
