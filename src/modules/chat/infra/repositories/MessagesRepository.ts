@@ -1,8 +1,8 @@
 import { getRepository, Repository } from "typeorm";
 
-import { ICreateMessageDTO } from "../dtos/ICreateMessageDTO";
-import { Message } from "../entities/Message";
-import { IMessageRepository } from "../infra/repositories/IMessagesRepository";
+import { ICreateMessageDTO } from "../../dtos/ICreateMessageDTO";
+import { Message } from "../../entities/Message";
+import { IMessageRepository } from "../../repositories/IMessagesRepository";
 
 class MessagesRepository implements IMessageRepository {
   private repository: Repository<Message>;

@@ -2,7 +2,7 @@ import { inject, injectable } from "tsyringe";
 
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
 import { Message } from "@modules/chat/entities/Message";
-import { IMessageRepository } from "@modules/chat/infra/repositories/IMessagesRepository";
+import { IMessageRepository } from "@modules/chat/repositories/IMessagesRepository";
 
 import { CreateMessageError } from "./CreateMessageError";
 

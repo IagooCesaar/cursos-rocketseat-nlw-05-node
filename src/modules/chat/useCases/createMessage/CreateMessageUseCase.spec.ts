@@ -1,7 +1,7 @@
 import { v4 as uuidV4 } from "uuid";
 
 import { InMemoryUsersRepository } from "@modules/accounts/repositories/in-memory/InMemoryUsersRepository";
-import { InMemoryMessageRepository } from "@modules/chat/infra/repositories/in-memory/InMemoryMessageRepository";
+import { InMemoryMessageRepository } from "@modules/chat/repositories/in-memory/InMemoryMessageRepository";
 
 import { CreateMessageError } from "./CreateMessageError";
 import { CreateMessageUseCase } from "./CreateMessageUseCase";
