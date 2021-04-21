@@ -17,6 +17,7 @@ class MessagesRepository implements IMessageRepository {
       order: {
         created_at: "DESC",
       },
+      relations: ["user"],
     });
     return messages;
   }
