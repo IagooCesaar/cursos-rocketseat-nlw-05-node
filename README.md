@@ -9,7 +9,7 @@ Será contruída durante esta semana (de 19 a 25/04) uma aplicação para envio 
 
 - Aula 1 - Fundamentos do NodeJS
 - Aula 2 - Primeiro contato com banco de dados (TypeORM + SQLite 3)
-- Aula 3 - _(21/04)_
+- Aula 3 - Separando regra de negócio e relacionamentos (um pra um, muitos para um)
 - Aula 4 - _(22/04)_
 - Aula 5 - _(23/04)_
 
