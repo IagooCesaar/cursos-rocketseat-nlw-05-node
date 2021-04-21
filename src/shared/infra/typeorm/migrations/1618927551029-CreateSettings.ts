@@ -1,4 +1,4 @@
-import { Column, MigrationInterface, QueryRunner, Table } from "typeorm";
+import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
 export class CreateSettings1618927551029 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
