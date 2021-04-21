@@ -23,6 +23,10 @@ class CreateMessageUseCase {
   ) {}
 
   async execute({ admin_id, user_id, text }: IRequest): Promise<Message> {
+    if (!text) {
+      throw new CreateMessageError.TextMustNotBeEmpty();
+    }
+
     const userExists = await this.usersRepository.findById(user_id);
     if (!userExists) {
       throw new CreateMessageError.UserNotFound();
