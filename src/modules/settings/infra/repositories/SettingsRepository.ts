@@ -6,8 +6,14 @@ import { ISettingsRepository } from "@modules/settings/repositories/ISettingsRep
 
 class SettingsRepository implements ISettingsRepository {
   private repository: Repository<Settings>;
+
   constructor() {
     this.repository = getRepository(Settings);
+  }
+
+  async findByUsername(username: string): Promise<Settings> {
+    const setting = await this.repository.findOne({ username });
+    return setting;
   }
 
   async create({ id, username, chat }: ICreateSettingsDTO): Promise<Settings> {

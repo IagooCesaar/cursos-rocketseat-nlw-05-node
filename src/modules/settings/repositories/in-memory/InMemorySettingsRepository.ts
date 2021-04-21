@@ -6,6 +6,10 @@ import { ISettingsRepository } from "../ISettingsRepository";
 class InMemorySettingsRepository implements ISettingsRepository {
   private settings: Settings[] = [];
 
+  async findByUsername(username: string): Promise<Settings> {
+    return this.settings.find((setting) => setting.username === username);
+  }
+
   async create({ id, username, chat }: ICreateSettingsDTO): Promise<Settings> {
     const setting = new Settings();
     Object.assign(setting, {
