@@ -12,12 +12,12 @@ interface IRequest {
 @injectable()
 class CreateMessageUseCase {
   constructor(
-    @inject("MessageRepository")
-    private messageRepository: IMessageRepository
+    @inject("MessagesRepository")
+    private messagesRepository: IMessageRepository
   ) {}
 
   async execute({ admin_id, user_id, text }: IRequest): Promise<Message> {
-    const message = await this.messageRepository.createMessage({
+    const message = await this.messagesRepository.createMessage({
       user_id,
       text,
       admin_id,
