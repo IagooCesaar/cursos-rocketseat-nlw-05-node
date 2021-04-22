@@ -7,9 +7,14 @@ import { UserProfileUseCase } from "@modules/accounts/useCases/userProfile/UserP
 import { CreateConnectionUseCase } from "@modules/chat/useCases/createConnection/CreateConnectionUseCase";
 import { CreateMessageUseCase } from "@modules/chat/useCases/createMessage/CreateMessageUseCase";
 
+interface IParams {
+  text: string;
+  email: string;
+}
+
 const clientSocketHandler = (io: Server, socket: Socket) => {
   socket.on("client_first_access", async (params) => {
-    const { text, email } = params;
+    const { text, email } = params as IParams;
 
     let user: User = null;
     try {
