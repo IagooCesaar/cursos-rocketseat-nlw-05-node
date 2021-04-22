@@ -3,8 +3,7 @@ import "reflect-metadata";
 import "@shared/container";
 
 import express, { Request, Response } from "express";
-import { createServer } from "http";
-import { Server, Socket } from "socket.io";
+import path from "path";
 
 import createConnection from "@shared/infra/typeorm";
 
@@ -15,8 +14,18 @@ createConnection();
 
 const app = express();
 
-const http = createServer(app);
-const io = new Server(http);
+app.use(
+  express.static(path.resolve(__dirname, "..", "..", "..", "..", "public"))
+);
+app.set("views", path.resolve(__dirname, "..", "..", "..", "..", "public"));
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+app.engine("html", require("ejs").renderFile);
+
+app.set("view engine", "html");
+
+app.get("/pages/client", (request: Request, response: Response) => {
+  return response.render("html/client.html");
+});
 
 app.use(express.json());
 
