@@ -2,8 +2,8 @@ import "reflect-metadata";
 
 import { createServer } from "http";
 import { Server, Socket } from "socket.io";
-import { clientSocketHandler } from "websocket/client";
 
+import { clientSocketHandler } from "../websocket/handlers/client";
 import { app } from "./app";
 
 const http = createServer(app);
