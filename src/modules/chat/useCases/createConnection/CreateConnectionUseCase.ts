@@ -27,10 +27,25 @@ class CreateConnectionUseCase {
       throw new CreateConnectionError.UserNotFound();
     }
 
+    const currentConnection = await this.connectionsRepository.findByUserEmail(
+      email
+    );
+    if (currentConnection) {
+      currentConnection.socket_id = socket_id;
+      await this.connectionsRepository.create({
+        socket_id: currentConnection.socket_id,
+        user_id: currentConnection.user_id,
+        admin_id: currentConnection.admin_id,
+        id: currentConnection.id,
+      });
+      return currentConnection;
+    }
+
     const connection = await this.connectionsRepository.create({
       socket_id,
       user_id: user.id,
     });
+
     return connection;
   }
 }
