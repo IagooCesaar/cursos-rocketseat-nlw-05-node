@@ -11,6 +11,11 @@ class SettingsRepository implements ISettingsRepository {
     this.repository = getRepository(Settings);
   }
 
+  async findById(id: string): Promise<Settings> {
+    const setting = await this.repository.findOne(id);
+    return setting;
+  }
+
   async findByUsername(username: string): Promise<Settings> {
     const setting = await this.repository.findOne({ username });
     return setting;
