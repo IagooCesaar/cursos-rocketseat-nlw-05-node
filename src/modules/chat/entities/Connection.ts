@@ -11,7 +11,7 @@ import { v4 as uuidV4 } from "uuid";
 
 import { User } from "@modules/accounts/entities/Users";
 
-@Entity()
+@Entity("connections")
 class Connection {
   @PrimaryColumn()
   id: string;
@@ -28,9 +28,6 @@ class Connection {
 
   @Column()
   socket_id: string;
-
-  @Column()
-  text: string;
 
   @CreateDateColumn()
   created_at: Date;
