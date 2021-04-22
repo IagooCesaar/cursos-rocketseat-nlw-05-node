@@ -8,6 +8,7 @@ interface IConnectionsRepository {
     admin_id,
     id,
   }: ICreateConnectionDTO): Promise<Connection>;
+  findByUserEmail(email: string): Promise<Connection>;
 }
 
 export { IConnectionsRepository };

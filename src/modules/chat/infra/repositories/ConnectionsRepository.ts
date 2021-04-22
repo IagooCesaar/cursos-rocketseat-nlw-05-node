@@ -11,6 +11,15 @@ class ConnectionsRepository implements IConnectionsRepository {
     this.repository = getRepository(Connection);
   }
 
+  async findByUserEmail(email: string): Promise<Connection> {
+    const connection = await this.repository
+      .createQueryBuilder("connection")
+      .leftJoinAndSelect("connection.user", "user")
+      .where("user.email = :email", { email })
+      .getOne();
+    return connection;
+  }
+
   async create({
     socket_id,
     user_id,
