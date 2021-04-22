@@ -1,5 +1,8 @@
+import "reflect-metadata";
+
 import { createServer } from "http";
 import { Server, Socket } from "socket.io";
+import { clientSocketHandler } from "websocket/client";
 
 import { app } from "./app";
 
@@ -8,6 +11,8 @@ const io = new Server(http);
 
 io.on("connection", (socket: Socket) => {
   console.log("Nova conexão", socket.id);
+
+  clientSocketHandler(io, socket);
 });
 
 http.listen(3333, () => console.log("Server is running 🚀"));
