@@ -1,6 +1,7 @@
 const socketHandler = {
   socket: null,
   chatForm: null,
+  admin_id: null,
 
   init(chatForm) {
     socketHandler.chatForm = chatForm;
@@ -41,26 +42,18 @@ const socketHandler = {
     const templateClient = socketHandler.chatForm.templateClient.innerHTML;
     const templateAdmin = socketHandler.chatForm.templateAdmin.innerHTML;
 
-    messages.forEach((message) => {
-      if (!message.admin_id) {
-        const rendered = Mustache.render(templateClient, {
-          message: message.text,
-          email: message.user.email,
-        });
-
-        document.getElementById("messages").innerHTML += rendered;
-      } else {
-        const rendered = Mustache.render(templateAdmin, {
-          message_admin: message.text,
-        });
-        document.getElementById("messages").innerHTML += rendered;
-      }
-    });
+    messages.forEach(chatForm.renderMessage);
   },
 
   onReceiveMessage(data) {
     const { text, socket_id } = data;
-    console.log("text", text);
+    socketHandler.admin_id = socket_id;
+
+    const message = {
+      text,
+      admin_id: socket_id,
+    };
+    socketHandler.chatForm.renderMessage(message);
   },
 };
 
@@ -77,6 +70,25 @@ const chatForm = {
   changeToHistory() {
     chatForm.chatHelp.style.display = "none";
     chatForm.chatInSupport.style.display = "block";
+  },
+
+  renderMessage(message) {
+    const templateClient = chatForm.templateClient.innerHTML;
+    const templateAdmin = chatForm.templateAdmin.innerHTML;
+
+    if (!message.admin_id) {
+      const rendered = Mustache.render(templateClient, {
+        message: message.text,
+        email: message.user.email,
+      });
+
+      document.getElementById("messages").innerHTML += rendered;
+    } else {
+      const rendered = Mustache.render(templateAdmin, {
+        message_admin: message.text,
+      });
+      document.getElementById("messages").innerHTML += rendered;
+    }
   },
 
   init() {
