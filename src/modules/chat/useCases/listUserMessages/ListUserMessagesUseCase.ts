@@ -4,7 +4,7 @@ import { Message } from "@modules/chat/entities/Message";
 import { IMessageRepository } from "@modules/chat/repositories/IMessagesRepository";
 
 @injectable()
-class ListUserMessageUseCase {
+class ListUserMessagesUseCase {
   constructor(
     @inject("MessagesRepository")
     private messagesRepository: IMessageRepository
@@ -16,4 +16,4 @@ class ListUserMessageUseCase {
   }
 }
 
-export { ListUserMessageUseCase };
+export { ListUserMessagesUseCase };
