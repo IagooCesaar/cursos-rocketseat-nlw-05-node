@@ -4,7 +4,7 @@ import { container } from "tsyringe";
 import { User } from "@modules/accounts/entities/Users";
 import { CreateUserUseCase } from "@modules/accounts/useCases/createUser/CreateUserUseCase";
 import { UserProfileUseCase } from "@modules/accounts/useCases/userProfile/UserProfileUseCase";
-import { CreateConnectionUseCase } from "@modules/chat/useCases/createConnection/CreateConnectionUseCase";
+import { CreateClientConnectionUseCase } from "@modules/chat/useCases/createClienteConnection/CreateClientConnectionUseCase";
 import { CreateMessageUseCase } from "@modules/chat/useCases/createMessage/CreateMessageUseCase";
 import { ListUserMessagesUseCase } from "@modules/chat/useCases/listUserMessages/ListUserMessagesUseCase";
 
@@ -13,7 +13,7 @@ interface IParams {
   email: string;
 }
 
-const CreateConnectionSocketHandler = (io: Server, socket: Socket) => {
+const CreateClientConnectionSocketHandler = (io: Server, socket: Socket) => {
   return async (params: IParams): Promise<void> => {
     const { text, email } = params as IParams;
 
@@ -28,7 +28,9 @@ const CreateConnectionSocketHandler = (io: Server, socket: Socket) => {
       });
     }
 
-    const createConnectionUseCase = container.resolve(CreateConnectionUseCase);
+    const createConnectionUseCase = container.resolve(
+      CreateClientConnectionUseCase
+    );
     const connection = await createConnectionUseCase.execute({
       email,
       socket_id: socket.id,
@@ -47,4 +49,4 @@ const CreateConnectionSocketHandler = (io: Server, socket: Socket) => {
   };
 };
 
-export { CreateConnectionSocketHandler };
+export { CreateClientConnectionSocketHandler };

@@ -4,7 +4,7 @@ import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepositor
 import { Connection } from "@modules/chat/entities/Connection";
 import { IConnectionsRepository } from "@modules/chat/repositories/IConnectionsRepository";
 
-import { CreateConnectionError } from "./CreateConnectionError";
+import { CreateClientConnectionError } from "./CreateClientConnectionError";
 
 interface IRequest {
   email: string;
@@ -12,7 +12,7 @@ interface IRequest {
 }
 
 @injectable()
-class CreateConnectionUseCase {
+class CreateClientConnectionUseCase {
   constructor(
     @inject("ConnectionsRepository")
     private connectionsRepository: IConnectionsRepository,
@@ -24,7 +24,7 @@ class CreateConnectionUseCase {
   async execute({ email, socket_id }: IRequest): Promise<Connection> {
     const user = await this.usersRepository.findByEmail(email);
     if (!user) {
-      throw new CreateConnectionError.UserNotFound();
+      throw new CreateClientConnectionError.UserNotFound();
     }
 
     const currentConnection = await this.connectionsRepository.findByUserEmail(
@@ -50,4 +50,4 @@ class CreateConnectionUseCase {
   }
 }
 
-export { CreateConnectionUseCase };
+export { CreateClientConnectionUseCase };
