@@ -1,3 +1,9 @@
+const Utils = {
+  FormatDate(string_date) {
+    return dayjs(string_date).format("DD/MM/YYYY HH:mm:ss");
+  },
+};
+
 const Connections = {
   list: [],
   getBySocketId(socket_id) {
@@ -45,7 +51,30 @@ const chatForm = {
   },
 
   renderMessages(messages) {
-    console.log("cheguei", messages);
+    const [firstMessage] = messages;
+    const { user } = firstMessage;
+
+    const divMessages = document.getElementById(`allMessages${user.id}`);
+    messages.forEach((message) => {
+      const newDiv = document.createElement("div");
+
+      if (!message.admin_id) {
+        newDiv.className = "admin_message_client";
+        newDiv.innerHTML = `<span>${user.email}</span>`;
+        newDiv.innerHTML += `<span>${message.text}</span>`;
+        newDiv.innerHTML += `<span class="admin_date">${Utils.FormatDate(
+          message.created_at
+        )}</span>`;
+      } else {
+        newDiv.className = "admin_message_admin";
+        newDiv.innerHTML = `Atendente: <span>${message.text}</span>`;
+        newDiv.innerHTML += `<span class="admin_date">${Utils.FormatDate(
+          message.created_at
+        )}</span>`;
+      }
+
+      divMessages.appendChild(newDiv);
+    });
   },
 };
 
