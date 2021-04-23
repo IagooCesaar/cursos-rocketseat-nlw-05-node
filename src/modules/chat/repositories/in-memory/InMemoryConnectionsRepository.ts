@@ -6,6 +6,10 @@ import { IConnectionsRepository } from "../IConnectionsRepository";
 class InMemoryConnectionsRepository implements IConnectionsRepository {
   private connections: Connection[] = [];
 
+  async findByUserEmail(email: string): Promise<Connection> {
+    throw new Error("Method not implemented.");
+  }
+
   async create({
     socket_id,
     user_id,
