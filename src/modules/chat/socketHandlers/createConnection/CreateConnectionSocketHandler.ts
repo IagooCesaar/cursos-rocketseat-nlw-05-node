@@ -6,6 +6,7 @@ import { CreateUserUseCase } from "@modules/accounts/useCases/createUser/CreateU
 import { UserProfileUseCase } from "@modules/accounts/useCases/userProfile/UserProfileUseCase";
 import { CreateConnectionUseCase } from "@modules/chat/useCases/createConnection/CreateConnectionUseCase";
 import { CreateMessageUseCase } from "@modules/chat/useCases/createMessage/CreateMessageUseCase";
+import { ListUserMessagesUseCase } from "@modules/chat/useCases/listUserMessages/ListUserMessagesUseCase";
 
 interface IParams {
   text: string;
@@ -38,6 +39,11 @@ const CreateConnectionSocketHandler = (io: Server, socket: Socket) => {
       user_id: user.id,
       text,
     });
+
+    const listUserMessaages = container.resolve(ListUserMessagesUseCase);
+    const allMessages = await listUserMessaages.execute(user.id);
+
+    socket.emit("client_list_all_messages", allMessages);
   };
 };
 
