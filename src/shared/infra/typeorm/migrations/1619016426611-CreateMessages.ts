@@ -7,7 +7,7 @@ export class CreateMessages1619016426611 implements MigrationInterface {
         name: "messages",
         columns: [
           { name: "id", type: "uuid", isPrimary: true },
-          { name: "admin_id", type: "uuid", isNullable: true },
+          { name: "admin_id", type: "varchar", isNullable: true },
           { name: "user_id", type: "uuid" },
           { name: "text", type: "varchar" },
           { name: "created_at", type: "timestamp", default: "now()" },
