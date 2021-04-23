@@ -12,8 +12,8 @@ interface IParams {
   email: string;
 }
 
-const clientSocketHandler = (io: Server, socket: Socket) => {
-  socket.on("client_first_access", async (params) => {
+const CreateConnectionSocketHandler = (io: Server, socket: Socket) => {
+  return async (params: IParams): Promise<void> => {
     const { text, email } = params as IParams;
 
     let user: User = null;
@@ -38,7 +38,7 @@ const clientSocketHandler = (io: Server, socket: Socket) => {
       user_id: user.id,
       text,
     });
-  });
+  };
 };
 
-export { clientSocketHandler };
+export { CreateConnectionSocketHandler };
