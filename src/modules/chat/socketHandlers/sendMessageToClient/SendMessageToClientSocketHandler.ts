@@ -11,8 +11,9 @@ interface IParams {
 
 const SendMessageToClientSocketHandler = (io: Server, socket: Socket) => {
   return async ({ text, user_id }: IParams, callback): Promise<void> => {
-    const createMessgeUseCase = container.resolve(CreateMessageUseCase);
-    const message = await createMessgeUseCase.execute({
+    console.log("aui");
+    const createMessageUseCase = container.resolve(CreateMessageUseCase);
+    const message = await createMessageUseCase.execute({
       admin_id: socket.id,
       text,
       user_id,
