@@ -9,6 +9,8 @@ interface IConnectionsRepository {
     id,
   }: ICreateConnectionDTO): Promise<Connection>;
   findByUserEmail(email: string): Promise<Connection>;
+
+  findWithoutAdmin(): Promise<Connection[]>;
 }
 
 export { IConnectionsRepository };
