@@ -51,30 +51,41 @@ const chatForm = {
   },
 
   renderMessages(messages) {
-    const [firstMessage] = messages;
-    const { user } = firstMessage;
+    messages.forEach(chatForm.renderOnMessage);
+  },
 
+  renderOnMessage(message) {
+    const { user } = message;
     const divMessages = document.getElementById(`allMessages${user.id}`);
-    messages.forEach((message) => {
-      const newDiv = document.createElement("div");
+    const newDiv = document.createElement("div");
 
-      if (!message.admin_id) {
-        newDiv.className = "admin_message_client";
-        newDiv.innerHTML = `<span>${user.email}</span>`;
-        newDiv.innerHTML += `<span>${message.text}</span>`;
-        newDiv.innerHTML += `<span class="admin_date">${Utils.FormatDate(
-          message.created_at
-        )}</span>`;
-      } else {
-        newDiv.className = "admin_message_admin";
-        newDiv.innerHTML = `Atendente: <span>${message.text}</span>`;
-        newDiv.innerHTML += `<span class="admin_date">${Utils.FormatDate(
-          message.created_at
-        )}</span>`;
-      }
+    if (!message.admin_id) {
+      newDiv.className = "admin_message_client";
+      newDiv.innerHTML = `<span>${user.email}</span>`;
+      newDiv.innerHTML += `<span>${message.text}</span>`;
+      newDiv.innerHTML += `<span class="admin_date">${Utils.FormatDate(
+        message.created_at
+      )}</span>`;
+    } else {
+      newDiv.className = "admin_message_admin";
+      newDiv.innerHTML = `Atendente: <span>${message.text}</span>`;
+      newDiv.innerHTML += `<span class="admin_date">${Utils.FormatDate(
+        message.created_at
+      )}</span>`;
+    }
 
-      divMessages.appendChild(newDiv);
-    });
+    divMessages.appendChild(newDiv);
+  },
+
+  sendMessage(user_id) {
+    const text = document.getElementById(`send_message_${user_id}`).value;
+
+    const params = {
+      text,
+      user_id,
+    };
+
+    chatForm.socketHandler.socket.emit("admin_send_message", params);
   },
 };
 
