@@ -2,6 +2,10 @@ const Utils = {
   FormatDate(string_date) {
     return dayjs(string_date).format("DD/MM/YYYY HH:mm:ss");
   },
+
+  currentTimestamp() {
+    return dayjs();
+  },
 };
 
 const Connections = {
@@ -55,7 +59,6 @@ const chatForm = {
   },
 
   renderOneMessage(message) {
-    console.log("renderOneMessage", message);
     const { user } = message;
     const divMessages = document.getElementById(`allMessages${user.id}`);
     const newDiv = document.createElement("div");
@@ -79,18 +82,26 @@ const chatForm = {
   },
 
   sendMessage(user_id) {
-    const text = document.getElementById(`send_message_${user_id}`).value;
+    const textElement = document.getElementById(`send_message_${user_id}`);
 
     const params = {
-      text,
+      text: textElement.value,
       user_id,
     };
 
-    chatForm.socketHandler.socket.emit(
-      "admin_send_message",
-      params,
-      (message) => console.log(message) // chatForm.renderOnMessage(message, user_id)
-    );
+    const divMessages = document.getElementById(`allMessages${user_id}`);
+    const newDiv = document.createElement("div");
+
+    newDiv.className = "admin_message_admin";
+    newDiv.innerHTML = `Atendente: <span>${params.text}</span>`;
+    newDiv.innerHTML += `<span class="admin_date">${Utils.FormatDate(
+      Utils.FormatDate(Utils.currentTimestamp())
+    )}</span>`;
+
+    divMessages.appendChild(newDiv);
+    textElement.value = "";
+
+    chatForm.socketHandler.socket.emit("admin_send_message", params);
   },
 };
 
