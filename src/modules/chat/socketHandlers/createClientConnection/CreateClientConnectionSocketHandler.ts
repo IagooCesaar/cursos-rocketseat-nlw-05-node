@@ -31,19 +31,19 @@ const CreateClientConnectionSocketHandler = (io: Server, socket: Socket) => {
     const createConnectionUseCase = container.resolve(
       CreateClientConnectionUseCase
     );
-    const connection = await createConnectionUseCase.execute({
+    await createConnectionUseCase.execute({
       email,
       socket_id: socket.id,
     });
 
     const createMessageUseCase = container.resolve(CreateMessageUseCase);
-    const message = await createMessageUseCase.execute({
+    await createMessageUseCase.execute({
       user_id: user.id,
       text,
     });
 
-    const listUserMessaages = container.resolve(ListUserMessagesUseCase);
-    const allMessages = await listUserMessaages.execute(user.id);
+    const listUserMessages = container.resolve(ListUserMessagesUseCase);
+    const allMessages = await listUserMessages.execute(user.id);
 
     socket.emit("client_list_all_messages", allMessages);
   };
