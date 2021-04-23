@@ -51,10 +51,11 @@ const chatForm = {
   },
 
   renderMessages(messages) {
-    messages.forEach(chatForm.renderOnMessage);
+    messages.forEach(chatForm.renderOneMessage);
   },
 
-  renderOnMessage(message) {
+  renderOneMessage(message) {
+    console.log("renderOneMessage", message);
     const { user } = message;
     const divMessages = document.getElementById(`allMessages${user.id}`);
     const newDiv = document.createElement("div");
@@ -85,7 +86,11 @@ const chatForm = {
       user_id,
     };
 
-    chatForm.socketHandler.socket.emit("admin_send_message", params);
+    chatForm.socketHandler.socket.emit(
+      "admin_send_message",
+      params,
+      (message) => console.log(message) // chatForm.renderOnMessage(message, user_id)
+    );
   },
 };
 

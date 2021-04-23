@@ -6,6 +6,14 @@ const socketHandler = {
     socketHandler.chatForm = chatForm;
     socketHandler.socket = io();
     socketHandler.socket.on("connect", socketHandler.onConnect);
+    socketHandler.socket.on(
+      "client_list_all_messages",
+      socketHandler.onGetAllMessages
+    );
+    socketHandler.socket.on(
+      "admin_send_to_client",
+      socketHandler.onReceiveMessage
+    );
 
     return true;
   },
@@ -26,11 +34,6 @@ const socketHandler = {
           console.log(callback);
         }
       }
-    );
-
-    socketHandler.socket.on(
-      "client_list_all_messages",
-      socketHandler.onGetAllMessages
     );
   },
 
@@ -53,6 +56,11 @@ const socketHandler = {
         document.getElementById("messages").innerHTML += rendered;
       }
     });
+  },
+
+  onReceiveMessage(data) {
+    const { text, socket_id } = data;
+    console.log("text", text);
   },
 };
 
