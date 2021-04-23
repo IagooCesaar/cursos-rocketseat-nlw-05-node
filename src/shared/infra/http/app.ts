@@ -27,6 +27,10 @@ app.get("/pages/client", (request: Request, response: Response) => {
   return response.render("html/client.html");
 });
 
+app.get("/pages/admin", (request: Request, response: Response) => {
+  return response.render("html/admin.html");
+});
+
 app.use(express.json());
 
 app.use(router);
