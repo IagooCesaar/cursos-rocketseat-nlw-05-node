@@ -1,7 +1,7 @@
 import { Server, Socket } from "socket.io";
 
 import { adminSocketHandler } from "./handlers/admin.handlers";
-import { clientSocketHandler } from "./handlers/cliente.handlers";
+import { clientSocketHandler } from "./handlers/client.handlers";
 
 const webSocketHandlers = (io: Server, socket: Socket): void => {
   clientSocketHandler(io, socket);

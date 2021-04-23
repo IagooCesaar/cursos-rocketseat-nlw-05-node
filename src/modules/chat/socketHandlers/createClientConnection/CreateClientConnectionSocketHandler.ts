@@ -15,7 +15,7 @@ interface IParams {
 
 const CreateClientConnectionSocketHandler = (io: Server, socket: Socket) => {
   return async (params: IParams): Promise<void> => {
-    const { text, email } = params as IParams;
+    const { text, email } = params;
 
     let user: User = null;
     try {

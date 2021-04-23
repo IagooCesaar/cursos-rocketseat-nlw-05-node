@@ -8,6 +8,8 @@ const Connections = {
 };
 
 const chatForm = {
+  socketHandler: null,
+
   usersList: document.getElementById("list_users"),
   supportChat: document.getElementById("supports"),
 
@@ -34,10 +36,16 @@ const chatForm = {
       email: user.email,
       id: user.id,
     });
-
-    console.log(rendered);
-
     chatForm.supportChat.innerHTML += rendered;
+
+    const params = {
+      user_id: user.id,
+    };
+    chatForm.socketHandler.requestAllUserMessages(params);
+  },
+
+  renderMessages(messages) {
+    console.log("cheguei", messages);
   },
 };
 
@@ -56,6 +64,17 @@ const socketHandler = {
     Connections.list = connections;
     chatForm.renderUsersList();
   },
+
+  requestAllUserMessages(params) {
+    socketHandler.socket.emit(
+      "admin_list_messages_by_user",
+      params,
+      (messages) => {
+        chatForm.renderMessages(messages);
+      }
+    );
+  },
 };
 
 socketHandler.init();
+chatForm.socketHandler = socketHandler;
