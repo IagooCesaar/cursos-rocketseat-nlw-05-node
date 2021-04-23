@@ -11,6 +11,8 @@ interface IConnectionsRepository {
   findByUserEmail(email: string): Promise<Connection>;
 
   findWithoutAdmin(): Promise<Connection[]>;
+
+  findByUserId(user_id: string): Promise<Connection>;
 }
 
 export { IConnectionsRepository };

@@ -6,6 +6,12 @@ import { IConnectionsRepository } from "../IConnectionsRepository";
 class InMemoryConnectionsRepository implements IConnectionsRepository {
   private connections: Connection[] = [];
 
+  async findByUserId(user_id: string): Promise<Connection> {
+    return this.connections.find(
+      (connection) => connection.user_id === user_id
+    );
+  }
+
   async findWithoutAdmin(): Promise<Connection[]> {
     const connections = this.connections.filter(
       (connection) => !connection.admin_id

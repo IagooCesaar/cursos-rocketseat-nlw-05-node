@@ -11,6 +11,13 @@ class ConnectionsRepository implements IConnectionsRepository {
     this.repository = getRepository(Connection);
   }
 
+  async findByUserId(user_id: string): Promise<Connection> {
+    const connection = await this.repository.findOne({
+      user_id,
+    });
+    return connection;
+  }
+
   async findWithoutAdmin(): Promise<Connection[]> {
     const connections = await this.repository.find({
       where: { admin_id: null },
