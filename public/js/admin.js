@@ -1,11 +1,23 @@
+const Connections = {
+  list: [],
+  getBySocketId(socket_id) {
+    return Connections.list.find(
+      (connection) => connection.socket_id === socket_id
+    );
+  },
+};
+
 const chatForm = {
   usersList: document.getElementById("list_users"),
-  userListTemplate: document.getElementById("template"),
+  supportChat: document.getElementById("supports"),
 
-  renderUsersList(connections) {
+  userListTemplate: document.getElementById("template"),
+  adminListTemplate: document.getElementById("admin_template"),
+
+  renderUsersList() {
     chatForm.usersList.innerHTML = "";
 
-    connections.forEach((connection) => {
+    Connections.list.forEach((connection) => {
       const rendered = Mustache.render(chatForm.userListTemplate.innerHTML, {
         id: connection.socket_id,
         email: connection.user.email,
@@ -13,6 +25,19 @@ const chatForm = {
 
       chatForm.usersList.innerHTML += rendered;
     });
+  },
+
+  call(socket_id) {
+    const { user } = Connections.getBySocketId(socket_id);
+
+    const rendered = Mustache.render(chatForm.adminListTemplate.innerHTML, {
+      email: user.email,
+      id: user.id,
+    });
+
+    console.log(rendered);
+
+    chatForm.supportChat.innerHTML += rendered;
   },
 };
 
@@ -28,7 +53,8 @@ const socketHandler = {
   },
 
   onGetListUsers(connections) {
-    chatForm.renderUsersList(connections);
+    Connections.list = connections;
+    chatForm.renderUsersList();
   },
 };
 
