@@ -31,6 +31,27 @@ app.get("/pages/admin", (request: Request, response: Response) => {
   return response.render("html/admin.html");
 });
 
+app.use(
+  "/api-coverage",
+  express.static(
+    path.resolve(__dirname, "..", "..", "..", "..", "coverage", "lcov-report")
+  )
+);
+app.get("/api-coverage", (request: Request, response: Response) => {
+  return response.sendFile(
+    path.resolve(
+      __dirname,
+      "..",
+      "..",
+      "..",
+      "..",
+      "coverage",
+      "lcov-report",
+      "index.html"
+    )
+  );
+});
+
 app.use(express.json());
 
 app.use(router);
