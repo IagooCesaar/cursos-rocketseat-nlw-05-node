@@ -59,13 +59,16 @@ const chatForm = {
   },
 
   renderOneMessage(message) {
-    const { user } = message;
-    const divMessages = document.getElementById(`allMessages${user.id}`);
+    const { user_id } = message;
+
+    const divMessages = document.getElementById(`allMessages${user_id}`);
+    const email = document.getElementById(`email${user_id}`).innerHTML;
+
     const newDiv = document.createElement("div");
 
     if (!message.admin_id) {
       newDiv.className = "admin_message_client";
-      newDiv.innerHTML = `<span>${user.email}</span>`;
+      newDiv.innerHTML = `<span>${email}</span>`;
       newDiv.innerHTML += `<span>${message.text}</span>`;
       newDiv.innerHTML += `<span class="admin_date">${Utils.FormatDate(
         message.created_at
@@ -83,24 +86,21 @@ const chatForm = {
 
   sendMessage(user_id) {
     const textElement = document.getElementById(`send_message_${user_id}`);
-
-    const params = {
-      text: textElement.value,
-      user_id,
-    };
-
-    const divMessages = document.getElementById(`allMessages${user_id}`);
-    const newDiv = document.createElement("div");
-
-    newDiv.className = "admin_message_admin";
-    newDiv.innerHTML = `Atendente: <span>${params.text}</span>`;
-    newDiv.innerHTML += `<span class="admin_date">${Utils.FormatDate(
-      Utils.FormatDate(Utils.currentTimestamp())
-    )}</span>`;
-
-    divMessages.appendChild(newDiv);
+    const text = textElement.value;
     textElement.value = "";
 
+    const message = {
+      text,
+      created_at: Utils.currentTimestamp(),
+      user_id,
+      admin_id: chatForm.socketHandler.socket.id,
+    };
+    chatForm.renderOneMessage(message);
+
+    const params = {
+      text,
+      user_id,
+    };
     chatForm.socketHandler.socket.emit("admin_send_message", params);
   },
 };
@@ -114,6 +114,15 @@ const socketHandler = {
       "admin_list_all_users",
       socketHandler.onGetListUsers
     );
+    socketHandler.socket.on(
+      "client_send_to_admin",
+      socketHandler.onReceiveMessage
+    );
+  },
+
+  onReceiveMessage(message) {
+    chatForm.renderOneMessage(message);
+    // console.log("onReceiveMessage", message);
   },
 
   onGetListUsers(connections) {
