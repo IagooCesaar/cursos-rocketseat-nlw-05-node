@@ -6,6 +6,7 @@ import { CreateUserUseCase } from "@modules/accounts/useCases/createUser/CreateU
 import { UserProfileUseCase } from "@modules/accounts/useCases/userProfile/UserProfileUseCase";
 import { CreateClientConnectionUseCase } from "@modules/chat/useCases/createClienteConnection/CreateClientConnectionUseCase";
 import { CreateMessageUseCase } from "@modules/chat/useCases/createMessage/CreateMessageUseCase";
+import { GetClientsWithoutAdminUseCase } from "@modules/chat/useCases/getClientsWithoutAdmin/GetClientsWithoutAdminUseCase";
 import { ListUserMessagesUseCase } from "@modules/chat/useCases/listUserMessages/ListUserMessagesUseCase";
 
 interface IParams {
@@ -46,6 +47,12 @@ const CreateClientConnectionSocketHandler = (io: Server, socket: Socket) => {
     const allMessages = await listUserMessages.execute(user.id);
 
     socket.emit("client_list_all_messages", allMessages);
+
+    const getClientsWithoutAdminUseCase = container.resolve(
+      GetClientsWithoutAdminUseCase
+    );
+    const connections = await getClientsWithoutAdminUseCase.execute();
+    io.emit("admin_new_client_connection", connections);
   };
 };
 

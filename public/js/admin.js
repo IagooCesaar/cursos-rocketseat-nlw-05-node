@@ -115,6 +115,10 @@ const socketHandler = {
       socketHandler.onGetListUsers
     );
     socketHandler.socket.on(
+      "admin_new_client_connection",
+      socketHandler.onGetListUsers
+    );
+    socketHandler.socket.on(
       "client_send_to_admin",
       socketHandler.onReceiveMessage
     );
