@@ -4,8 +4,9 @@ import { container } from "tsyringe";
 import { UserProfileUseCase } from "./UserProfileUseCase";
 
 class UserProfileController {
-  async execute(request: Request, response: Response): Promise<Response> {
-    const { user_id, email } = request.body;
+  async handle(request: Request, response: Response): Promise<Response> {
+    const { user_id, email } = request.params;
+
     const userProfileUseCase = container.resolve(UserProfileUseCase);
     const user = await userProfileUseCase.execute({
       user_id,
