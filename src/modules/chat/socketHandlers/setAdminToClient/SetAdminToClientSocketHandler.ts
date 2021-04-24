@@ -1,6 +1,7 @@
 import { Server, Socket } from "socket.io";
 import { container } from "tsyringe";
 
+import { GetClientsWithoutAdminUseCase } from "@modules/chat/useCases/getClientsWithoutAdmin/GetClientsWithoutAdminUseCase";
 import { SetAdminToClientConnectionUseCase } from "@modules/chat/useCases/setAdminToClientConnection/SetAdminToClientConnectionUseCase";
 
 interface IParams {
@@ -18,6 +19,12 @@ const SetAdminToClientSocketHandler = (io: Server, socket: Socket) => {
       user_id,
       admin_id: socket.id,
     });
+
+    const getClientsWithoutAdminUseCase = container.resolve(
+      GetClientsWithoutAdminUseCase
+    );
+    const connections = await getClientsWithoutAdminUseCase.execute();
+    io.emit("admin_new_client_connection", connections);
   };
 };
 
