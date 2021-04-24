@@ -11,7 +11,8 @@ class InMemoryUsersRepository implements IUsersRepository {
   }
 
   async findByEmail(email: string): Promise<User> {
-    return this.users.find((user) => user.email === email);
+    const user = this.users.find((user) => user.email === email);
+    return user;
   }
 
   async create({ email }: ICreateUserDTO): Promise<User> {
