@@ -26,7 +26,14 @@ class InMemoryConnectionsRepository implements IConnectionsRepository {
   }
 
   async findByUserEmail(email: string): Promise<Connection> {
-    throw new Error("Method not implemented.");
+    const connection = this.connections.find((connection) => {
+      if (connection.user) {
+        if (connection.user.email === email) return true;
+        return false;
+      }
+      return false;
+    });
+    return connection;
   }
 
   async create({
