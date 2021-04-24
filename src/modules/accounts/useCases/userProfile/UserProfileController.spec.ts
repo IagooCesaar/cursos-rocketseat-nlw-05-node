@@ -4,7 +4,6 @@ import { Connection, createConnection } from "typeorm";
 import { app } from "@shared/infra/http/app";
 
 import { UserProfileError } from "./UserProfileError";
-import { UserProfileUseCase } from "./UserProfileUseCase";
 
 const mockUserData = {
   email: "test@test.com",
