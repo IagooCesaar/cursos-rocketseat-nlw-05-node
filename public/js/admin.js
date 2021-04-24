@@ -103,6 +103,7 @@ const chatForm = {
       user_id,
     };
     chatForm.socketHandler.socket.emit("admin_send_message", params);
+    chatForm.socketHandler.setInSupport({ user_id });
   },
 };
 

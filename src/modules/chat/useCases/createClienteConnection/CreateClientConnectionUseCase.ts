@@ -35,7 +35,7 @@ class CreateClientConnectionUseCase {
       await this.connectionsRepository.create({
         socket_id: currentConnection.socket_id,
         user_id: currentConnection.user_id,
-        admin_id: currentConnection.admin_id,
+        admin_id: null,
         id: currentConnection.id,
       });
       return currentConnection;
