@@ -21,7 +21,7 @@ const SendMessageToClientSocketHandler = (io: Server, socket: Socket) => {
     const getUserConnectionUseCase = container.resolve(
       GetUserConnectionDetailUseCase
     );
-    const { socket_id } = await getUserConnectionUseCase.execute(user_id);
+    const { socket_id } = await getUserConnectionUseCase.execute({ user_id });
 
     io.to(socket_id).emit("admin_send_to_client", {
       text,
