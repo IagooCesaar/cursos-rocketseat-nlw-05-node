@@ -17,7 +17,6 @@ class SetAdminToClientConnectionUseCase {
 
   async execute({ admin_id, user_id }: IRequest): Promise<Connection> {
     const connection = await this.connectionsRepository.findByUserId(user_id);
-    console.log("conn", connection);
     connection.admin_id = admin_id;
     await this.connectionsRepository.create(connection);
     return connection;
