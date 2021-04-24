@@ -55,6 +55,14 @@ const socketHandler = {
     };
     socketHandler.chatForm.renderMessage(message);
   },
+
+  sendMessage(text) {
+    const params = {
+      text,
+      admin_id: socketHandler.admin_id,
+    };
+    socketHandler.socket.emit("client_send_to_admin", params);
+  },
 };
 
 const chatForm = {
@@ -66,6 +74,8 @@ const chatForm = {
 
   textArea: document.getElementById("txt_help"),
   email: document.getElementById("email"),
+
+  textMessage: document.getElementById("message_user"),
 
   changeToHistory() {
     chatForm.chatHelp.style.display = "none";
@@ -96,5 +106,20 @@ const chatForm = {
     if (socketHandler.init(chatForm)) {
       chatForm.changeToHistory();
     }
+  },
+
+  sendMessage() {
+    const text = chatForm.textMessage.value;
+    socketHandler.sendMessage(text);
+    chatForm.textMessage.value = "";
+
+    const email = chatForm.email.innerHTML;
+    const message = {
+      text,
+      user: {
+        email,
+      },
+    };
+    chatForm.renderMessage(message);
   },
 };
