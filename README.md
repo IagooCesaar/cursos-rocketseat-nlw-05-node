@@ -65,6 +65,8 @@ Exemplo:
 
 Agora com todas as dependências disponíveis, para executar o projeto em ambiente de *desenvolvimento* execute o comando `yarn dev`. O serviço será iniciado na porta *3333*. Você poderá utilizar o [Insomnia](https://insomnia.rest/download) (ou qualqer software similar, como o Postman) para acessar os recursos desta API.
 
+Com a aplicação em funcionamento, utilize o seu browser favorito para acessar página de clientes em [http://localhost:3333/pages/client](http://localhost:3333/pages/client) e a página de administradores em [http://localhost:3333/pages/admin](http://localhost:3333/pages/admin)
+
 # Como executar os testes
 
 Para executar os testes será necessário primeiramente seguir os passos anteriores para ter todas as dependências disponíveis.
