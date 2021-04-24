@@ -6,6 +6,12 @@ import { IConnectionsRepository } from "../IConnectionsRepository";
 class InMemoryConnectionsRepository implements IConnectionsRepository {
   private connections: Connection[] = [];
 
+  async findByUserSocketId(socket_id: string): Promise<Connection> {
+    return this.connections.find(
+      (connection) => connection.socket_id === socket_id
+    );
+  }
+
   async findByUserId(user_id: string): Promise<Connection> {
     return this.connections.find(
       (connection) => connection.user_id === user_id

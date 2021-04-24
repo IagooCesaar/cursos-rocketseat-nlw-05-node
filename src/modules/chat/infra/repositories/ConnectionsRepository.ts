@@ -11,6 +11,11 @@ class ConnectionsRepository implements IConnectionsRepository {
     this.repository = getRepository(Connection);
   }
 
+  async findByUserSocketId(socket_id: string): Promise<Connection> {
+    const connection = await this.repository.findOne({ socket_id });
+    return connection;
+  }
+
   async findByUserId(user_id: string): Promise<Connection> {
     const connection = await this.repository.findOne({
       user_id,

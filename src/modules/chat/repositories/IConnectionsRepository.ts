@@ -13,6 +13,8 @@ interface IConnectionsRepository {
   findWithoutAdmin(): Promise<Connection[]>;
 
   findByUserId(user_id: string): Promise<Connection>;
+
+  findByUserSocketId(socket_id: string): Promise<Connection>;
 }
 
 export { IConnectionsRepository };
