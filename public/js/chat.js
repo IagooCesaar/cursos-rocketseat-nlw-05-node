@@ -102,7 +102,6 @@ const chatForm = {
   },
 
   init() {
-    console.log("Iniciou o chat");
     if (socketHandler.init(chatForm)) {
       chatForm.changeToHistory();
     }
