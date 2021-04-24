@@ -52,6 +52,7 @@ const chatForm = {
       user_id: user.id,
     };
     chatForm.socketHandler.requestAllUserMessages(params);
+    chatForm.socketHandler.setInSupport(params);
   },
 
   renderMessages(messages) {
@@ -142,6 +143,11 @@ const socketHandler = {
         chatForm.renderMessages(messages);
       }
     );
+  },
+
+  setInSupport(params) {
+    console.log("here", params);
+    socketHandler.socket.emit("admin_set_user_in_support", params);
   },
 };
 
