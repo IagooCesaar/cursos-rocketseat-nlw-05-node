@@ -3,17 +3,17 @@ import { v4 as uuidV4 } from "uuid";
 import { InMemoryUsersRepository } from "@modules/accounts/repositories/in-memory/InMemoryUsersRepository";
 import { InMemoryMessageRepository } from "@modules/chat/repositories/in-memory/InMemoryMessageRepository";
 
-import { ListUserMessageUseCase } from "./ListUserMessagesUseCase";
+import { ListUserMessagesUseCase } from "./ListUserMessagesUseCase";
 
 let usersRepository: InMemoryUsersRepository;
 let messagesRepository: InMemoryMessageRepository;
-let listUserMessageUseCase: ListUserMessageUseCase;
+let listUserMessageUseCase: ListUserMessagesUseCase;
 
 describe("ListUserMessagesUseCase", () => {
   beforeEach(() => {
     usersRepository = new InMemoryUsersRepository();
     messagesRepository = new InMemoryMessageRepository();
-    listUserMessageUseCase = new ListUserMessageUseCase(messagesRepository);
+    listUserMessageUseCase = new ListUserMessagesUseCase(messagesRepository);
   });
 
   it("Should be able to get all messages by a valid user id", async () => {
