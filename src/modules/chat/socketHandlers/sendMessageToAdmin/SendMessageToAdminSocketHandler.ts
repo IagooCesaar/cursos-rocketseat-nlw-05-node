@@ -12,6 +12,7 @@ interface IParams {
 const SendMessageToAdminSocketHandler = (io: Server, socket: Socket) => {
   return async ({ text, admin_id }: IParams): Promise<void> => {
     const socket_id = socket.id;
+    console.log("aqui", admin_id);
 
     const getUserConnectionUseCase = container.resolve(
       GetUserConnectionDetailUseCase
@@ -19,16 +20,13 @@ const SendMessageToAdminSocketHandler = (io: Server, socket: Socket) => {
     const { user_id } = await getUserConnectionUseCase.execute({ socket_id });
 
     const createMessageUseCase = container.resolve(CreateMessageUseCase);
-    await createMessageUseCase.execute({
-      admin_id,
+    const message = await createMessageUseCase.execute({
       text,
       user_id,
     });
+    console.log(message);
 
-    io.to(admin_id).emit("client_send_to_admin", {
-      text,
-      socket_id,
-    });
+    io.to(admin_id).emit("client_send_to_admin", message);
   };
 };
 
