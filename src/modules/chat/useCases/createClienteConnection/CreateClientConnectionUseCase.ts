@@ -27,8 +27,8 @@ class CreateClientConnectionUseCase {
       throw new CreateClientConnectionError.UserNotFound();
     }
 
-    const currentConnection = await this.connectionsRepository.findByUserEmail(
-      email
+    const currentConnection = await this.connectionsRepository.findByUserId(
+      user.id
     );
     if (currentConnection) {
       currentConnection.socket_id = socket_id;

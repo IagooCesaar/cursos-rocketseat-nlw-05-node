@@ -46,8 +46,8 @@ class InMemoryConnectionsRepository implements IConnectionsRepository {
     Object.assign(connection, {
       socket_id,
       user_id,
-      admin_id,
-      id,
+      admin_id: admin_id || connection.admin_id,
+      id: id || connection.id,
     });
     this.connections.push(connection);
     return connection;
