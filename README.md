@@ -80,3 +80,9 @@ Com nosso banco de dados criado, de volta ao terminal, execute o comando `yarn t
 # Diagrama das entidadas do banco de dados
 
 ![Diagrama](https://github.com/IagooCesaar/cursos-rocketseat-nlw-05-node/blob/main/diagrama.png?raw=true)
+
+# Cobertura de testes
+
+![Cobertura de testes](https://user-images.githubusercontent.com/12894025/116007233-257d6200-a5e5-11eb-8255-c52ca50ab975.jpg)
+
+Após executar os testes, inicie a aplicação e acesse a rota http://localhost:3333/api-coverage/index.html
