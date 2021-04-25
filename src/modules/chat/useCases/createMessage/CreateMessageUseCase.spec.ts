@@ -31,25 +31,24 @@ describe("CreateMessageUseCase", () => {
     expect(message).toHaveProperty("id");
   });
 
-  it("", async () => {
-    const fakeId = uuidV4();
-
-    await expect(
-      createMessageUseCase.execute({
-        user_id: fakeId,
-        text: "Need help",
-      })
-    ).rejects.toBeInstanceOf(CreateMessageError.UserNotFound);
-  });
-
-  it("Should be able to create a message for a user", async () => {
+  it("Should not be able to create a message for a user without text", async () => {
     const user = await usersRepository.create({ email: "test@test.com" });
 
     await expect(
       createMessageUseCase.execute({
         user_id: user.id,
-        text: "",
+        text: undefined,
       })
     ).rejects.toBeInstanceOf(CreateMessageError.TextMustNotBeEmpty);
+  });
+
+  it("Should not be able to create a message for a inexistent user", async () => {
+    const fakeId = uuidV4();
+    await expect(
+      createMessageUseCase.execute({
+        user_id: fakeId,
+        text: "test",
+      })
+    ).rejects.toBeInstanceOf(CreateMessageError.UserNotFound);
   });
 });
